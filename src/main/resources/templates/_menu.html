@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"></html>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+   	<a class="navbar-brand" href="#">SpecRes</a>
+   	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+   		<span class="navbar-toggler-icon"></span>
+   	</button>
+   	<div class="collapse navbar-collapse" id="navbarNav">
+   		<ul class="navbar-nav">
+       		<li class="nav-item active">
+       			<a class="nav-link" href="#" th:href="@{/home}">Accueil <span class="sr-only">(current)</span></a>
+       		</li>
+       		<div sec:authorize="hasAuthority('Admin')" >  
+       			<li class="nav-item">
+       				<a class="nav-link" href="#" th:href="@{/user/userList}">Utilisateurs</a>
+       				</li>
+       		</div>
+       		<div sec:authorize="hasAuthority('Admin')" >  
+       			<li class="nav-item">
+       				<a class="nav-link" href="#" th:href="@{/spectacle/spectacleList}">Spectacle</a>
+       			</li>
+       		</div>
+       		<div sec:authorize="hasAuthority('Admin')" >  
+       			<li class="nav-item">
+       				<a class="nav-link" href="#" th:href="@{/representation/representationList}">Representation</a>
+       			</li>
+       		</div>
+       		<div sec:authorize="hasAuthority('Non_abonne')" >  
+       			<li class="nav-item">
+          			<a class="nav-link" href="#" th:href="@{/abonnement}">S'abonner</a>
+       			</li>
+       		</div>
+       		<div sec:authorize="hasAuthority('Abonne')" >  
+       			<li class="nav-item">
+           			<a class="nav-link" href="#" th:href="@{/desabonnement}">Se désabonner</a>
+       			</li>
+       		</div>
+       		<div sec:authorize="hasAnyAuthority('Abonne','Non_abonne')" >  
+       			<li class="nav-item">
+           			<a class="nav-link" href="#" th:href="@{/spectacleCustomer}">Réserver un spectacle</a>
+       			</li>
+       		</div>
+       		<div sec:authorize="hasAuthority('Abonne')" >  
+       			<li class="nav-item">
+          			<a class="nav-link" href="#" th:href="@{/reservation/reservationList}">Mes réservations</a>
+       			</li>
+       		</div>
+		</ul>
+	</div>
+</nav>
