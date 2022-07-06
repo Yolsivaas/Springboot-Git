@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User;
 
 import com.translate.model.UserEntity;
-import com.translate.repository.RoleRepository;
 import com.translate.repository.UserRepository;
 
 import org.springframework.stereotype.Service;
@@ -17,8 +16,6 @@ public class UserDetailService implements UserDetailsService
 {
 	@Autowired
 	UserRepository userRepository;
-	@Autowired
-	RoleRepository roleRepository;
 	
 	@Override
 	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException

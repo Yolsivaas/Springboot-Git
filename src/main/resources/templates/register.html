@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+	  xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+	<head>
+		<title>Register Page</title>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+		<script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+		<!-- <th:block th:include="/_menu"></th:block> -->
+	</head>
+	<body>
+		<p>Register Page<p>
+		<form th:action="@{/create}" method="post" th:object="${user}">
+			<p class="error-message" th:if="${#fields.hasGlobalErrors()}" th:each="error : ${#fields.errors('global')}" th:text="${error}">Validation error</p>
+			<div class="form-group" th:classappend="${#fields.hasErrors('firstName')}? 'has-error':''">
+				<label for="firstName" class="control-label">First name</label>
+				<input id="firstName" class="form-control" th:field="*{firstName}"/>
+				<p class="error-message" th:each="error: ${#fields.errors('firstName')}" th:text="${error}">Validation error</p>
+			</div>
+			<div class="form-group" th:classappend="${#fields.hasErrors('lastName')}? 'has-error':''">
+				<label for="lastName" class="control-label">Last name</label>
+				<input id="lastName" class="form-control" th:field="*{lastName}"/>
+				<p class="error-message" th:each="error : ${#fields.errors('lastName')}" th:text="${error}">Validation error</p>
+			</div>
+			<div class="form-group" th:classappend="${#fields.hasErrors('email')}? 'has-error':''">
+				<label for="email" class="control-label">E-mail</label>
+				<input id="email" class="form-control" th:field="*{email}"/>
+				<p class="error-message" th:each="error : ${#fields.errors('email')}" th:text="${error}">Validation error</p>
+			</div>
+			<div class="form-group" th:classappend="${#fields.hasErrors('password')}? 'has-error':''">
+				<label for="password" class="control-label">Password</label>
+				<input id="password" class="form-control" type="password" th:field="*{password}"/>
+				<p class="error-message" th:each="error : ${#fields.errors('password')}" th:text="${error}">Validation error</p>
+			</div>
+			<div class="form-group">
+            	<input id="role" type="hidden" name="role" th:value="USER"/>
+            </div>
+            <div class="form-group">
+            	<input id="isVerified" type="hidden" name="isVerified" th:value="false"/>
+            </div>
+			<button type="submit" class="btn btn-primary">Submit</button>
+			<button><a th:href="@{/login}" style="color: black;text-decoration: none;">Login</a></button>
+		</form>
+	</body>
+</html>

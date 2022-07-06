@@ -2,34 +2,55 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
 	  xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 	<head>
-		<title>Home</title>
-		<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+		<title>Home Page</title>
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 		<script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.0.0/css/font-awesome.min.css">
 		<!-- <th:block th:include="/_menu"></th:block> -->
 	</head>
 	<body>
-		<div class="container">
-			<h2>Bonjour <span sec:authentication="firstName" th:text="${user.firstName}"></span></h2>
-			<!--<table>
+		<p>Home Page<p>
+		<p>
+			Welcome <span th:text="${current.getFullName()}"/></br>
+			<span th:if="${current.isVerified().equals(false)}">Your account isn't verified yet.</span>
+		</p>
+		<div th:if="${current.getRole().equals('ADMIN')}">
+			<table>
                 <thead>
                     <tr>
-                        <th>Name</th>
-                        <th>Email</th>
-                    </tr>
-                </thead>
-                <tbody>
-                	<tr th:each="user : ${users}">
-                    	<td th:text="${user.firstName}"></td>
-                    	<td th:text="${user.lastName}"></td>
-                    	<td th:text="${user.email}"></td>
-                	</tr>
+                    	<th>Role</th>
+                       	<th>Full Name</th>
+                       	<th>Email Address</th>
+                       	<th>is Verified</th>
+                   	</tr>
+               	</thead>
+               	<tbody>
+               		<tr th:each="u : ${list}">
+                   		<td th:text="${u.role}"/>
+                   		<td th:text="${u.getFullName()}"/>
+                   		<td th:text="${u.email}"/>
+                   		<td th:text="${u.isVerified} ? 'Oui' : 'Non'"/>
+                   	
+                   		<td>
+                   			<form th:action="@{/verify}" method="post" th:object="${user}">
+                   				<div class="form-group">
+                   					<input id="email" type="hidden" name="email" th:value="${u.email}"/>
+                   				</div>
+								<button type="submit" class="btn btn-success">Verify</button>
+                   			</form>
+                   		</td>
+                   		<td>
+                   			<form th:action="@{/remove}" method="post" th:object="${user}">
+                   				<div class="form-group">
+                   					<input id="email" type="hidden" name="email" th:value="${u.email}"/>
+                   				</div>
+								<button type="submit" class="btn btn-success">Remove</button>
+                   			</form>
+                   		</td>
+               		</tr>
             	</tbody>
-            	
-        	</table>
-        	-->
-			<a th:href="@{/login}">Se Déconnecter</a>
-		</div>
-	</body>
+       		</table>
+       	</div>
+       	</br>
+		<button><a th:href="@{/login}" style="color: black;text-decoration: none;">Logout</a></button>
+</body>
 </html>

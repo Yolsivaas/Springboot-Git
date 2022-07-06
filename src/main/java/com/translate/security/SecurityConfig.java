@@ -50,7 +50,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
     		.antMatchers("/login","/register").permitAll()
     		.antMatchers("/admin/**").access("hasRole('ADMIN')")
     		.and().formLogin().defaultSuccessUrl("/home")
-    		.loginPage("/login").failureUrl("/login?error=true")
-    		.and();
+    		.loginPage("/login").failureUrl("/login?error=true");
     }
 }
